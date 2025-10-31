@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas - ManageNLearn</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/estadisticas.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo" onerror="this.style.display='none'">
+      ManageNLearn
+    </h1>
+    <div class="menu" id="menuDashboard">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <!-- HEADER -->
+      <div class="stats-header">
+        <h2>📊 Panel de Estadísticas</h2>
+        <p>Analiza y gestiona tus métricas de rendimiento en tiempo real</p>
+      </div>
+
+      <!-- TABS -->
+      <div class="stats-tabs">
+        <button class="stats-tab active" onclick="app.cambiarTab('ventas', event)">
+          💰 Ventas
+        </button>
+        <button class="stats-tab" onclick="app.cambiarTab('operaciones', event)">
+          ⚙️ Operaciones
+        </button>
+        <button class="btn-history" onclick="app.mostrarHistorial()">
+          📜 Historial
+        </button>
+        <button class="btn-reset" onclick="app.mostrarModalReset()">
+          🗑️ Resetear
+        </button>
+      </div>
+
+      <!-- VENTAS TAB -->
+      <div id="stats-ventas" class="stats-content active">
+        <h3 class="stats-subtitle">💵 Ventas y Finanzas</h3>
+        
+        <div class="stats-grid">
+          <!-- Ingresos Diarios -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">💵</div>
+              <button class="btn-edit-stat" onclick="app.editarStat('ventas', 'ingresosDiarios', 'Ingresos Diarios')">
+                ✏️ Editar
+              </button>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Ingresos Diarios</span>
+              <span class="stat-value" id="val-ingresosDiarios">$0</span>
+              <span class="stat-period">Hoy</span>
+            </div>
+          </div>
+
+          <!-- Ingresos Semanales -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">💳</div>
+              <button class="btn-edit-stat" onclick="app.editarStat('ventas', 'ingresosSemanales', 'Ingresos Semanales')">
+                ✏️ Editar
+              </button>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Ingresos Semanales</span>
+              <span class="stat-value" id="val-ingresosSemanales">$0</span>
+              <span class="stat-period">Esta semana</span>
+            </div>
+          </div>
+
+          <!-- Ingresos Mensuales -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">💰</div>
+              <button class="btn-edit-stat" onclick="app.editarStat('ventas', 'ingresosMensuales', 'Ingresos Mensuales')">
+                ✏️ Editar
+              </button>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Ingresos Mensuales</span>
+              <span class="stat-value" id="val-ingresosMensuales">$0</span>
+              <span class="stat-period">Este mes</span>
+            </div>
+          </div>
+
+          <!-- Crecimiento (Automático) -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">📈</div>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Crecimiento</span>
+              <span class="stat-value stat-growth" id="val-crecimiento">+0%</span>
+              <span class="stat-period">Automático</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico Ventas -->
+        <div class="chart-container">
+          <canvas id="chartVentas"></canvas>
+        </div>
+      </div>
+
+      <!-- OPERACIONES TAB -->
+      <div id="stats-operaciones" class="stats-content">
+        <h3 class="stats-subtitle">⚙️ Operaciones y Proyectos</h3>
+        
+        <div class="stats-grid">
+          <!-- Proyectos Activos -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">📋</div>
+              <button class="btn-edit-stat" onclick="app.editarStat('operaciones', 'proyectosActivos', 'Proyectos Activos')">
+                ✏️ Editar
+              </button>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Proyectos Activos</span>
+              <span class="stat-value" id="val-proyectosActivos">0</span>
+              <span class="stat-period">En curso</span>
+            </div>
+          </div>
+
+          <!-- Proyectos Completados -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">✅</div>
+              <button class="btn-edit-stat" onclick="app.editarStat('operaciones', 'proyectosCompletados', 'Proyectos Completados')">
+                ✏️ Editar
+              </button>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Proyectos Completados</span>
+              <span class="stat-value" id="val-proyectosCompletados">0</span>
+              <span class="stat-period">Total</span>
+            </div>
+          </div>
+
+          <!-- Productividad (Automática) -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrapper">📊</div>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Productividad</span>
+              <span class="stat-value" id="val-productividad">0%</span>
+              <span class="stat-period">Automático</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico Operaciones -->
+        <div class="chart-container">
+          <canvas id="chartOperaciones"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL EDITAR -->
+    <div id="modalEditar" class="modal">
+      <div class="modal-content">
+        <h3 id="tituloModal">✏️ Editar Estadística</h3>
+        <div class="form-group">
+          <label id="labelEditar">Valor:</label>
+          <input type="number" id="inputEditar" placeholder="Ingresa el nuevo valor">
+        </div>
+        <div class="modal-buttons">
+          <button class="btn-save" onclick="app.guardarCambio()">
+            💾 Guardar
+          </button>
+          <button class="btn-cancel" onclick="app.cerrarModal()">
+            ❌ Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL RESET -->
+    <div id="modalReset" class="modal">
+      <div class="modal-content">
+        <h3 style="color: #dc3545;">⚠️ Resetear Datos</h3>
+        <p style="margin-bottom: 30px; color: #666; font-size: 17px; line-height: 1.8; text-align: center;">
+          ¿Estás seguro de resetear todos los datos?<br>
+          Los datos actuales se guardarán en el historial.
+        </p>
+        <div class="modal-buttons">
+          <button class="btn-save" onclick="app.borrarDatos()">
+            ✅ Confirmar
+          </button>
+          <button class="btn-cancel" onclick="app.cerrarModalReset()">
+            ❌ Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL HISTORIAL -->
+    <div id="modalHistorial" class="modal">
+      <div class="modal-content modal-content-wide">
+        <h3>📜 Historial de Datos</h3>
+        <div id="historialContenido" class="history-list"></div>
+        <div class="modal-buttons">
+          <button class="btn-cancel" onclick="app.cerrarHistorial()" style="flex: none; width: 100%;">
+            ✅ Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/estadisticas.js"></script>
+</body>
+</html>

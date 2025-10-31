@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda - ManageNLearn</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/agenda.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo">
+      ManageNLearn
+    </h1>
+    <div class="menu" id="menuDashboard">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main>
+    <div id="agenda">
+      <div class="agenda-wrapper">
+        <!-- HEADER -->
+        <div class="agenda-header">
+          <h2>📅 Mi Agenda</h2>
+          <p>Organiza tus eventos y mantén el control de tus fechas importantes</p>
+        </div>
+
+        <!-- ESTADÍSTICAS -->
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-icon">📋</div>
+            <div class="stat-number" id="totalEventos">0</div>
+            <div class="stat-label">Total Eventos</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">⏰</div>
+            <div class="stat-number" id="eventosProximos">0</div>
+            <div class="stat-label">Próximos 7 días</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">✅</div>
+            <div class="stat-number" id="eventosCompletados">0</div>
+            <div class="stat-label">Completados</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-number" id="eventosUrgentes">0</div>
+            <div class="stat-label">Urgentes</div>
+          </div>
+        </div>
+
+        <!-- LAYOUT PRINCIPAL -->
+        <div class="agenda-main">
+          <!-- FORMULARIO -->
+          <div class="form-section">
+            <h3>
+              <span id="formTitle">➕ Nuevo Evento</span>
+            </h3>
+            
+            <form id="formEvento">
+              <input type="hidden" id="eventoId">
+              
+              <div class="form-group">
+                <label>Título del Evento *</label>
+                <input type="text" id="inputTitulo" placeholder="Ej: Reunión con el equipo" required>
+              </div>
+
+              <div class="form-group">
+                <label>Descripción</label>
+                <textarea id="inputDescripcion" placeholder="Detalles del evento (opcional)"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Fecha *</label>
+                <input type="date" id="inputFecha" required>
+              </div>
+
+              <div class="form-group">
+                <label>Hora</label>
+                <input type="time" id="inputHora">
+              </div>
+
+              <div class="form-group">
+                <label>Categoría</label>
+                <select id="inputCategoria">
+                  <option value="trabajo">💼 Trabajo</option>
+                  <option value="personal">👤 Personal</option>
+                  <option value="reunion">🤝 Reunión</option>
+                  <option value="estudio">📚 Estudio</option>
+                  <option value="otro">📌 Otro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Color</label>
+                <div class="color-picker">
+                  <div class="color-option selected" data-color="#b3544d" style="background: #b3544d;"></div>
+                  <div class="color-option" data-color="#2196F3" style="background: #2196F3;"></div>
+                  <div class="color-option" data-color="#4CAF50" style="background: #4CAF50;"></div>
+                  <div class="color-option" data-color="#ff9800" style="background: #ff9800;"></div>
+                  <div class="color-option" data-color="#9C27B0" style="background: #9C27B0;"></div>
+                </div>
+                <input type="hidden" id="inputColor" value="#b3544d">
+              </div>
+
+              <button type="submit" class="btn-submit" id="btnSubmit">
+                ➕ Agregar Evento
+              </button>
+              <button type="button" class="btn-cancelar" id="btnCancelar" style="display: none;">
+                Cancelar Edición
+              </button>
+            </form>
+          </div>
+
+          <!-- ÁREA DERECHA: CALENDARIO Y LISTA -->
+          <div>
+            <!-- CALENDARIO GRANDE -->
+            <div class="calendario-container" id="calendarioContainer">
+              <div class="calendario-header">
+                <h3 id="mesActual">Enero 2024</h3>
+                <div class="calendario-nav">
+                  <button id="btnMesAnterior">◀ Anterior</button>
+                  <button id="btnHoy">Hoy</button>
+                  <button id="btnMesSiguiente">Siguiente ▶</button>
+                </div>
+              </div>
+              
+              <div class="calendario-grid" id="calendarioGrid">
+                <!-- Días de la semana -->
+                <div class="calendario-dia-nombre">Dom</div>
+                <div class="calendario-dia-nombre">Lun</div>
+                <div class="calendario-dia-nombre">Mar</div>
+                <div class="calendario-dia-nombre">Mié</div>
+                <div class="calendario-dia-nombre">Jue</div>
+                <div class="calendario-dia-nombre">Vie</div>
+                <div class="calendario-dia-nombre">Sáb</div>
+              </div>
+            </div>
+
+            <!-- FILTROS -->
+            <div class="filters-section">
+              <button class="filter-btn active" data-filter="todos">Todos</button>
+              <button class="filter-btn" data-filter="proximos">Próximos</button>
+              <button class="filter-btn" data-filter="completados">Completados</button>
+              <button class="filter-btn" data-filter="pendientes">Pendientes</button>
+
+              <div class="view-toggles">
+                <button class="view-btn active" data-view="lista">📋 Lista</button>
+                <button class="view-btn" data-view="grid">📱 Tarjetas</button>
+              </div>
+            </div>
+
+            <!-- CONTENEDOR DE EVENTOS -->
+            <div id="eventosContainer" class="eventos-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/agenda.js"></script>
+</body>
+</html>

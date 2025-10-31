@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ManageNLearn - Inicio</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/inicio.css">
+</head>
+<body>
+  <!-- Partículas flotantes -->
+  <div class="particles" id="particles"></div>
+  <div class="burbujas-container"></div> 
+  <div class="particles" id="particles"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23eeada7'/%3E%3Cpath d='M30 50 L45 65 L70 35' stroke='white' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" alt="Logo ManageNLearn">
+      ManageNLearn
+    </h1>
+    <div class="menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#perfil">Mi perfil</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#estadisticas">Estadísticas</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#configuracion">Configuración</a>
+      <a href="#soporte">Soporte</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Reloj digital -->
+  <div class="clock-widget">
+    <div class="clock-time" id="clock">00:00:00</div>
+    <div class="clock-date" id="date">Cargando...</div>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="main-container">
+    <!-- Bienvenida -->
+    <div class="welcome-section">
+      <h2>Bienvenido <span id="nombreUsuario">Eva</span> 👋</h2>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Buscar proyectos, eventos, recursos...">
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <h1>
+        Gestiona tu institución educativa desde<br>
+        <span class="highlight-box">UN SOLO SOFTWARE</span>
+      </h1>
+      <p>¡Sencillo y eficiente!</p>
+    </div>
+
+    <!-- Contador de estadísticas -->
+    <div class="stats-counter">
+      <div class="stat-card">
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Proyectos Activos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-target="8">0</div>
+        <div class="stat-label">Eventos Próximos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-target="24">0</div>
+        <div class="stat-label">Días Activo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-target="95">0</div>
+        <div class="stat-label">% Completado</div>
+      </div>
+    </div>
+
+    <!-- Tarjetas expandibles -->
+    <div class="tarjetas-expandibles">
+      <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+        <div class="tarjeta-header">
+          <span class="tarjeta-icon">👤</span>
+          <span class="tarjeta-titulo">Mi perfil</span>
+        </div>
+        <div class="tarjeta-contenido">
+          <p class="tarjeta-descripcion">
+            Consulta y edita tu información personal. Mantén actualizada tu foto, 
+            datos de contacto y preferencias del sistema.
+          </p>
+          <button class="btn-accion" onclick="redirigir('perfil', event)">Ir a Mi perfil</button>
+        </div>
+      </div>
+
+      <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+        <div class="tarjeta-header">
+          <span class="tarjeta-icon">📊</span>
+          <span class="tarjeta-titulo">Proyectos</span>
+        </div>
+        <div class="tarjeta-contenido">
+          <p class="tarjeta-descripcion">
+            Visualiza, organiza y gestiona todos tus proyectos educativos. 
+            Crea nuevos proyectos, establece fechas de entrega y monitorea el progreso.
+          </p>
+          <button class="btn-accion" onclick="redirigir('proyectos', event)">Ver Proyectos</button>
+        </div>
+      </div>
+
+      <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+        <div class="tarjeta-header">
+          <span class="tarjeta-icon">📅</span>
+          <span class="tarjeta-titulo">Agenda</span>
+        </div>
+        <div class="tarjeta-contenido">
+          <p class="tarjeta-descripcion">
+            Revisa tus actividades, eventos y entregas próximas. 
+            Organiza tu calendario y no pierdas ninguna fecha importante.
+          </p>
+          <button class="btn-accion" onclick="redirigir('agenda', event)">Abrir Agenda</button>
+        </div>
+      </div>
+
+      <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+        <div class="tarjeta-header">
+          <span class="tarjeta-icon">📈</span>
+          <span class="tarjeta-titulo">Estadísticas</span>
+        </div>
+        <div class="tarjeta-contenido">
+          <p class="tarjeta-descripcion">
+            Visualiza gráficas y datos importantes de tu institución. 
+            Analiza el rendimiento y toma decisiones informadas.
+          </p>
+          <button class="btn-accion" onclick="redirigir('estadisticas', event)">Ver Estadísticas</button>
+        </div>
+      </div>
+
+      <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+        <div class="tarjeta-header">
+          <span class="tarjeta-icon">⚙️</span>
+          <span class="tarjeta-titulo">Configuración</span>
+        </div>
+        <div class="tarjeta-contenido">
+          <p class="tarjeta-descripcion">
+            Personaliza tu experiencia. Cambia el tema, ajusta notificaciones 
+            y configura las opciones del sistema según tus preferencias.
+          </p>
+          <button class="btn-accion" onclick="redirigir('configuracion', event)">Configurar</button>
+        </div>
+      </div>
+
+      <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+        <div class="tarjeta-header">
+          <span class="tarjeta-icon">💬</span>
+          <span class="tarjeta-titulo">Soporte</span>
+        </div>
+        <div class="tarjeta-contenido">
+          <p class="tarjeta-descripcion">
+            ¿Necesitas ayuda? Consulta nuestras preguntas frecuentes, 
+            tutoriales y ponte en contacto con nuestro equipo de soporte.
+          </p>
+          <button class="btn-accion" onclick="redirigir('soporte', event)">Obtener Ayuda</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de tips -->
+    <div class="tips-section">
+      <div class="tip-container">
+        <h3 class="tip-title">💡 Consejo del día</h3>
+        <p class="tip-text" id="tipText">Cargando consejo...</p>
+        <button class="tip-btn" onclick="cambiarTip()">Nuevo consejo</button>
+      </div>
+    </div>
+
+    <!-- Sección de Opiniones -->
+    <div class="opiniones-section" id="opiniones">
+      <div class="opiniones-header">
+        <h2>Lo que dicen nuestros usuarios</h2>
+        <p>Experiencias reales de instituciones que confían en ManageNLearn</p>
+      </div>
+
+      <!-- Grid de opiniones -->
+      <div class="opiniones-grid" id="listaOpiniones">
+        <div class="opinion-card">
+          <div class="opinion-header">
+            <span class="opinion-nombre">María González</span>
+            <span class="opinion-estrellas">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p class="opinion-texto">
+            "Excelente plataforma para gestionar mi institución. 
+            Todo está organizado y es muy fácil de usar."
+          </p>
+        </div>
+
+        <div class="opinion-card">
+          <div class="opinion-header">
+            <span class="opinion-nombre">Carlos Ramírez</span>
+            <span class="opinion-estrellas">⭐⭐⭐⭐⭐</span>
+          </div>
+          <p class="opinion-texto">
+            "Ha revolucionado la forma en que administramos nuestros proyectos. 
+            Altamente recomendado."
+          </p>
+        </div>
+
+        <div class="opinion-card">
+          <div class="opinion-header">
+            <span class="opinion-nombre">Ana Martínez</span>
+            <span class="opinion-estrellas">⭐⭐⭐⭐</span>
+          </div>
+          <p class="opinion-texto">
+            "Muy intuitivo y completo. El soporte técnico es excelente 
+            y siempre están dispuestos a ayudar."
+          </p>
+        </div>
+      </div>
+
+      <!-- Formulario para dejar opinión -->
+      <form class="form-opinion" id="formOpinion" onsubmit="enviarOpinion(event)">
+        <h3>Deja tu reseña ✨</h3>
+        <div class="form-group">
+          <input type="text" id="nombreOpinion" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <textarea id="textoOpinion" placeholder="Escribe tu opinión..." required></textarea>
+        </div>
+        <div class="form-group">
+          <select id="estrellasOpinion" required>
+            <option value="">Calificación</option>
+            <option value="⭐">⭐</option>
+            <option value="⭐⭐">⭐⭐</option>
+            <option value="⭐⭐⭐">⭐⭐⭐</option>
+            <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+            <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-enviar">Enviar opinión</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/inicio.js"></script>
+  
+</body>
+</html>

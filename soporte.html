@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soporte - ManageNLearn</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/soporte.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo" onerror="this.style.display='none'">
+      ManageNLearn
+    </h1>
+    <div class="menu" id="menuDashboard">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="soporte">
+      <div class="soporte-container">
+        <!-- HEADER -->
+        <div class="soporte-header">
+          <h2>🆘 Centro de Soporte</h2>
+          <p>Estamos aquí para ayudarte. Encuentra respuestas rápidas o contáctanos directamente</p>
+        </div>
+
+        
+
+        <!-- BÚSQUEDA -->
+        <div class="busqueda-soporte">
+          <input type="text" id="busquedaSoporte" placeholder="Busca tu pregunta aquí...">
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs-soporte">
+          <button class="tab-btn active" onclick="cambiarTab('faq')">
+            ❓ Preguntas Frecuentes
+          </button>
+          <button class="tab-btn" onclick="cambiarTab('tickets')">
+            🎫 Mis Tickets
+            <span class="notificacion-badge" id="notificacionTickets" style="display: none;">0</span>
+          </button>
+          <button class="tab-btn" onclick="cambiarTab('contacto')">
+            📞 Contacto
+          </button>
+          <button class="tab-btn" onclick="cambiarTab('tutoriales')">
+            📚 Tutoriales
+          </button>
+          <button class="tab-btn" onclick="cambiarTab('foro')">
+            👥 Foro Comunitario
+          </button>
+        </div>
+
+        <!-- FAQ TAB -->
+        <div id="tab-faq" class="tab-content active">
+          <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 28px;">
+            Preguntas Frecuentes
+          </h3>
+          <div class="faq-grid" id="faqContainer">
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Cómo recupero mi contraseña?
+              </button>
+              <div class="faq-respuesta">
+                Puedes restablecer tu contraseña desde la página de inicio de sesión haciendo clic en "Olvidé mi contraseña". Recibirás un correo electrónico con instrucciones para crear una nueva contraseña de forma segura.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Cómo edito mi perfil?
+              </button>
+              <div class="faq-respuesta">
+                En el menú superior, dirígete a "Mi perfil" y allí encontrarás todas las opciones de edición. Puedes actualizar tu información personal, foto de perfil y preferencias de cuenta.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Cómo creo un proyecto?
+              </button>
+              <div class="faq-respuesta">
+                Ve a la sección "Proyectos" en el menú principal y haz clic en "Agregar Proyecto". Completa los campos obligatorios como nombre, descripción y fecha de entrega, luego guarda. ¡Es muy sencillo!
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Puedo cambiar el tema visual?
+              </button>
+              <div class="faq-respuesta">
+                ¡Por supuesto! En la sección "Configuración" encontrarás la opción para alternar entre tema claro y oscuro. También puedes ajustar el tamaño de fuente según tus preferencias.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Cómo funcionan las estadísticas?
+              </button>
+              <div class="faq-respuesta">
+                En la sección de Estadísticas puedes registrar tus ingresos diarios, semanales y mensuales. El sistema calcula automáticamente el porcentaje de crecimiento y genera gráficas visuales para ayudarte a analizar tu progreso.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Los datos están seguros?
+              </button>
+              <div class="faq-respuesta">
+                Sí, todos tus datos están protegidos con encriptación y almacenados de forma segura. Utilizamos las mejores prácticas de seguridad para garantizar la privacidad de tu información.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Cómo agrego eventos a mi agenda?
+              </button>
+              <div class="faq-respuesta">
+                En la sección "Agenda" puedes crear eventos haciendo clic en "Nuevo Evento". Agrega título, fecha, hora, tipo y descripción. Los eventos se mostrarán en tu calendario personal.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-pregunta" onclick="toggleFaq(event)">
+                ¿Puedo exportar mis datos?
+              </button>
+              <div class="faq-respuesta">
+                ¡Sí! En tu perfil encontrarás la opción "Exportar mis datos" que descargará toda tu información en formato JSON. También puedes exportar proyectos desde la sección correspondiente.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TICKETS TAB -->
+        <div id="tab-tickets" class="tab-content">
+          <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 28px;">
+            Mis Tickets de Soporte
+          </h3>
+          
+          <!-- Formulario de nuevo ticket -->
+          <div class="nuevo-ticket-container">
+            <h4>✍️ Crear Nuevo Ticket</h4>
+            <div class="form-ticket">
+              <div class="form-row-ticket">
+                <div class="form-group-ticket">
+                  <label>Asunto *</label>
+                  <input type="text" id="asuntoTicket" placeholder="Ej: Problema con inicio de sesión">
+                </div>
+                <div class="form-group-ticket">
+                  <label>Categoría *</label>
+                  <select id="categoriaTicket">
+                    <option value="tecnico">🔧 Técnico</option>
+                    <option value="cuenta">👤 Cuenta</option>
+                    <option value="funcionalidad">⚙️ Funcionalidad</option>
+                    <option value="sugerencia">💡 Sugerencia</option>
+                    <option value="otro">📌 Otro</option>
+                  </select>
+                </div>
+                <div class="form-group-ticket">
+                  <label>Prioridad</label>
+                  <select id="prioridadTicket">
+                    <option value="baja">🟢 Baja</option>
+                    <option value="media" selected>🟡 Media</option>
+                    <option value="alta">🔴 Alta</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group-ticket">
+                <label>Mensaje *</label>
+                <textarea id="mensajeTicket" rows="4" placeholder="Describe tu problema o consulta..."></textarea>
+              </div>
+              <button class="btn-enviar-ticket" id="btnEnviarTicket">
+                📤 Enviar Ticket
+              </button>
+            </div>
+          </div>
+
+          <!-- Lista de tickets -->
+          <div class="tickets-lista-container">
+            <h4>📋 Historial de Tickets</h4>
+            <div id="listaTickets" class="lista-tickets">
+              <p class="sin-tickets">No tienes tickets aún. Crea uno para contactar con soporte.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACTO TAB -->
+        <div id="tab-contacto" class="tab-content">
+          <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 28px;">
+            Contáctanos Directamente
+          </h3>
+          <div class="contacto-grid">
+            <div class="contacto-card">
+              <div class="contacto-icon">📧</div>
+              <h3>Email</h3>
+              <p>Respuesta en 24-48 horas</p>
+              <a href="mailto:soporte@managenlearn.com" class="btn-contacto">Enviar Email</a>
+            </div>
+
+            <div class="contacto-card">
+              <div class="contacto-icon">💬</div>
+              <h3>WhatsApp</h3>
+              <p>Respuesta inmediata en horario laboral</p>
+              <a href="https://wa.me/573000000000" target="_blank" class="btn-contacto">Abrir WhatsApp</a>
+            </div>
+
+            <div class="contacto-card">
+              <div class="contacto-icon">💼</div>
+              <h3>Chat en Vivo</h3>
+              <p>Soporte instantáneo</p>
+              <button class="btn-contacto" onclick="abrirChat()">Iniciar Chat</button>
+            </div>
+          </div>
+
+          <!-- HORARIO -->
+          <div class="horario-box">
+            <h3>⏰ Horario de Atención</h3>
+            <div class="horario-item">
+              <span>Lunes - Viernes</span>
+              <span>8:00 AM - 6:00 PM</span>
+            </div>
+            <div class="horario-item">
+              <span>Sábados</span>
+              <span>9:00 AM - 2:00 PM</span>
+            </div>
+            <div class="horario-item">
+              <span>Domingos</span>
+              <span>Cerrado</span>
+            </div>
+          </div>
+
+          <!-- CALIFICACIÓN -->
+          <div class="calificacion-soporte">
+            <h3>⭐ Califica Nuestro Soporte</h3>
+            <p>Tu opinión nos ayuda a mejorar</p>
+            <div class="estrellas-container" id="calificacionEstrellas">
+              <span class="estrella-calificacion">⭐</span>
+              <span class="estrella-calificacion">⭐</span>
+              <span class="estrella-calificacion">⭐</span>
+              <span class="estrella-calificacion">⭐</span>
+              <span class="estrella-calificacion">⭐</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TUTORIALES TAB -->
+        <div id="tab-tutoriales" class="tab-content">
+          <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 28px;">
+            Guías y Tutoriales
+          </h3>
+          <div class="tutoriales-grid">
+            <div class="tutorial-card">
+              <span class="tutorial-icon">🚀</span>
+              <h4>Primeros Pasos</h4>
+              <p>Aprende cómo configurar tu cuenta y empezar a usar ManageNLearn desde cero. Tutorial paso a paso para nuevos usuarios.</p>
+              <a href="#" class="ver-tutorial">Ver tutorial →</a>
+            </div>
+
+            <div class="tutorial-card">
+              <span class="tutorial-icon">📋</span>
+              <h4>Gestión de Proyectos</h4>
+              <p>Descubre cómo crear, organizar y dar seguimiento a tus proyectos de manera efectiva con todas las herramientas disponibles.</p>
+              <a href="#" class="ver-tutorial">Ver tutorial →</a>
+            </div>
+
+            <div class="tutorial-card">
+              <span class="tutorial-icon">📅</span>
+              <h4>Uso de la Agenda</h4>
+              <p>Maximiza tu productividad aprendiendo a gestionar eventos, recordatorios y fechas importantes en tu agenda.</p>
+              <a href="#" class="ver-tutorial">Ver tutorial →</a>
+            </div>
+
+            <div class="tutorial-card">
+              <span class="tutorial-icon">📊</span>
+              <h4>Análisis Estadístico</h4>
+              <p>Comprende cómo registrar ingresos, interpretar gráficas y utilizar los datos para tomar mejores decisiones.</p>
+              <a href="#" class="ver-tutorial">Ver tutorial →</a>
+            </div>
+
+            <div class="tutorial-card">
+              <span class="tutorial-icon">⚙️</span>
+              <h4>Personalización</h4>
+              <p>Personaliza tu experiencia ajustando temas, notificaciones y otras preferencias según tus necesidades.</p>
+              <a href="#" class="ver-tutorial">Ver tutorial →</a>
+            </div>
+
+            <div class="tutorial-card">
+              <span class="tutorial-icon">🔒</span>
+              <h4>Seguridad y Privacidad</h4>
+              <p>Aprende las mejores prácticas para mantener tu cuenta segura y proteger tu información personal.</p>
+              <a href="#" class="ver-tutorial">Ver tutorial →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORO TAB -->
+        <div id="tab-foro" class="tab-content">
+          <div class="recursos-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <h3>👥 Bienvenido a la Comunidad ManageNLearn</h3>
+            <p style="font-size: 20px; max-width: 700px; margin: 0 auto 30px;">
+              Únete a miles de educadores y gestores que comparten experiencias, resuelven dudas y aprenden juntos
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto 40px; text-align: center;">
+              <div>
+                <div style="font-size: 48px; font-weight: bold;">2,500+</div>
+                <div style="font-size: 16px; opacity: 0.9;">Miembros activos</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold;">150+</div>
+                <div style="font-size: 16px; opacity: 0.9;">Discusiones diarias</div>
+              </div>
+              <div>
+                <div style="font-size: 48px; font-weight: bold;">98%</div>
+                <div style="font-size: 16px; opacity: 0.9;">Satisfacción</div>
+              </div>
+            </div>
+
+            <a href="https://managenlearnforo.blogspot.com/" target="_blank" class="btn-recurso" style="display: inline-flex; align-items: center; gap: 10px; font-size: 18px; padding: 18px 40px;">
+              🚀 Visitar el Foro
+            </a>
+          </div>
+
+          <div style="margin-top: 40px;">
+            <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 28px;">
+              ¿Qué encontrarás en nuestro foro?
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+              <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 15px;">💡</div>
+                <h4 style="color: var(--primary-color); margin-bottom: 12px; font-size: 20px;">Ideas y Consejos</h4>
+                <p style="color: var(--text-light); line-height: 1.6;">Comparte y descubre mejores prácticas para gestionar tu institución</p>
+              </div>
+
+              <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 15px;">🤝</div>
+                <h4 style="color: var(--primary-color); margin-bottom: 12px; font-size: 20px;">Soporte Comunitario</h4>
+                <p style="color: var(--text-light); line-height: 1.6;">Obtén ayuda de otros usuarios experimentados</p>
+              </div>
+
+              <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 15px;">📢</div>
+                <h4 style="color: var(--primary-color); margin-bottom: 12px; font-size: 20px;">Novedades</h4>
+                <p style="color: var(--text-light); line-height: 1.6;">Mantente al día con actualizaciones y nuevas funciones</p>
+              </div>
+
+              <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 15px;">🎯</div>
+                <h4 style="color: var(--primary-color); margin-bottom: 12px; font-size: 20px;">Casos de Éxito</h4>
+                <p style="color: var(--text-light); line-height: 1.6;">Aprende de historias reales de instituciones exitosas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CHATBOT FLOTANTE -->
+  <div class="chatbot-flotante">
+    <button class="btn-chatbot" id="btnAbrirChatbot" title="Chat en vivo">
+      💬
+    </button>
+  </div>
+
+  <!-- CHATBOT CONTAINER -->
+  <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+      <div>
+        <strong>🤖 Asistente Virtual</strong>
+        <span class="chatbot-status">En línea</span>
+      </div>
+      <button class="btn-cerrar-chatbot" id="btnCerrarChatbot">✕</button>
+    </div>
+    <div class="chatbot-mensajes" id="chatbotMensajes">
+      <!-- Mensajes se agregan dinámicamente -->
+    </div>
+    <div class="chatbot-input-container">
+      <input type="text" id="inputChatbot" placeholder="Escribe tu mensaje...">
+      <button id="btnEnviarMensajeChatbot">📤</button>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/soporte.js"></script>
+</body>
+</html>

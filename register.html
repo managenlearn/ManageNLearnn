@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ManageNLearn - Registro</title>
+  <link rel="stylesheet" href="../css/register.css">
+  <style>
+    /* CSS Crítico inline */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #eee5db, #f5f5f5);
+      color: #000;
+      min-height: 100vh;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #f7f0e8, #eeada7);
+      padding: 15px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar h1 {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+    }
+    
+    .navbar h1 img {
+      width: 45px;
+      height: 45px;
+      margin-right: 15px;
+      border-radius: 8px;
+    }
+    
+    .menu {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .menu a:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+    
+    main {
+      min-height: calc(100vh - 80px);
+      padding: 40px 20px;
+    }
+    
+    .register-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-height: 800px;
+    }
+    
+    .register-form {
+      padding: 60px 50px;
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+    
+    .register-form h2 {
+      color: #b3544d;
+      font-size: 32px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    
+    .register-form > p {
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+    
+    .form-section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: #f8f9fa;
+      border-radius: 16px;
+      border-left: 4px solid #b3544d;
+    }
+    
+    .form-section h3 {
+      color: #b3544d;
+      font-size: 20px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 25px;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #000;
+      font-size: 14px;
+    }
+    
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      background: #ffffff;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      color: #000;
+      font-family: inherit;
+    }
+    
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #b3544d;
+      box-shadow: 0 0 0 3px rgba(179, 84, 77, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .btn-register {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #e09791, #d4726b);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(179, 84, 77, 0.3);
+    }
+    
+    .btn-register:hover {
+      background: linear-gradient(135deg, #c87c74, #b86c65);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(179, 84, 77, 0.4);
+    }
+    
+    .register-illustration {
+      background: linear-gradient(135deg, #f8f4f1, #eeada7);
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .register-illustration img {
+      max-width: 250px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 30px;
+    }
+    
+    .register-illustration h3 {
+      color: #fff;
+      font-size: 26px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    
+    .mensaje {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .mensaje.exito {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .mensaje.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    @media (max-width: 1024px) {
+      .register-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .register-illustration {
+        order: -1;
+        padding: 40px 20px;
+      }
+      
+      .input-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo" onerror="this.style.display='none'">
+      ManageNLearn
+    </h1>
+    <div class="menu">
+      <a href="login.html">Iniciar Sesión</a>
+      <a href="index.html">Inicio</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="register-container">
+      <div class="register-form">
+        <h2>Crear Cuenta</h2>
+        <p>Únete a ManageNLearn y gestiona tu institución educativa</p>
+        
+        <form id="formRegistro">
+          <div class="form-section">
+            <h3>📋 Información Personal</h3>
+            
+            <div class="input-row">
+              <div class="input-group">
+                <label for="primerNombre">Primer nombre *</label>
+                <input type="text" id="primerNombre" name="primerNombre" required placeholder="Tu primer nombre">
+              </div>
+              <div class="input-group">
+                <label for="segundoNombre">Segundo nombre</label>
+                <input type="text" id="segundoNombre" name="segundoNombre" placeholder="Opcional">
+              </div>
+            </div>
+            
+            <div class="input-group">
+              <label for="apellidos">Apellidos *</label>
+              <input type="text" id="apellidos" name="apellidos" required placeholder="Tus apellidos">
+            </div>
+            
+            <div class="input-row">
+              <div class="input-group">
+                <label for="edad">Edad *</label>
+                <input type="number" id="edad" name="edad" required min="1" max="120" placeholder="25">
+              </div>
+              <div class="input-group">
+                <label for="correo">Correo electrónico *</label>
+                <input type="email" id="correo" name="correo" required placeholder="tu@email.com">
+              </div>
+            </div>
+            
+            <div class="input-row">
+              <div class="input-group">
+                <label for="password">Contraseña *</label>
+                <input type="password" id="password" name="password" required minlength="6" placeholder="Mínimo 6 caracteres">
+              </div>
+              <div class="input-group">
+                <label for="confirmarPassword">Confirmar contraseña *</label>
+                <input type="password" id="confirmarPassword" name="confirmarPassword" required minlength="6" placeholder="Repite tu contraseña">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>🏫 Información Institucional</h3>
+            
+            <div class="input-group">
+              <label for="centro">Nombre del centro educativo *</label>
+              <input type="text" id="centro" name="centro" required placeholder="Nombre de tu institución">
+            </div>
+            
+            <div class="input-row">
+              <div class="input-group">
+                <label for="pais">País *</label>
+                <input type="text" id="pais" name="pais" required placeholder="Colombia">
+              </div>
+              <div class="input-group">
+                <label for="departamento">Departamento/Estado *</label>
+                <input type="text" id="departamento" name="departamento" required placeholder="Antioquia">
+              </div>
+            </div>
+            
+            <div class="input-row">
+              <div class="input-group">
+                <label for="ciudad">Ciudad *</label>
+                <input type="text" id="ciudad" name="ciudad" required placeholder="Medellín">
+              </div>
+              <div class="input-group">
+                <label for="telefono">Teléfono de contacto *</label>
+                <input type="tel" id="telefono" name="telefono" required placeholder="+57 300 000 0000">
+              </div>
+            </div>
+            
+            <div class="input-group">
+              <label for="direccion">Dirección *</label>
+              <input type="text" id="direccion" name="direccion" required placeholder="Dirección completa de la institución">
+            </div>
+            
+            <div class="input-group">
+              <label for="correoCentro">Correo del centro educativo *</label>
+              <input type="email" id="correoCentro" name="correoCentro" required placeholder="contacto@institucion.edu.co">
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="btn-register">Crear Cuenta</button>
+          </div>
+        </form>
+        
+        <div class="register-footer" style="text-align: center; margin-bottom: 20px;">
+          <p style="color: #666; font-size: 14px;">¿Ya tienes cuenta? <a href="login.html" style="color: #b3544d; text-decoration: none; font-weight: 600;">Inicia sesión aquí</a></p>
+        </div>
+        
+        <div id="mensajeRegistro" class="mensaje" style="display: none;"></div>
+      </div>
+      
+      <div class="register-illustration">
+        <img src="../assets/imgcomputador.png" alt="Ilustración registro" onerror="this.style.display='none'">
+        <h3>¡Únete a nuestra comunidad educativa!</h3>
+        <p style="color: rgba(255,255,255,0.9); font-size: 15px; line-height: 1.6; margin-bottom: 30px;">Gestiona proyectos, organiza eventos y optimiza recursos en un solo lugar</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_URL = 'http://localhost/ManageNLearn/api';
+
+    document.getElementById("formRegistro").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const password = formData.get("password");
+      const confirmarPassword = formData.get("confirmarPassword");
+      const mensaje = document.getElementById("mensajeRegistro");
+      const btnSubmit = e.target.querySelector('button[type="submit"]');
+      
+      if (password !== confirmarPassword) {
+        mensaje.textContent = "Las contraseñas no coinciden";
+        mensaje.className = "mensaje error";
+        mensaje.style.display = "block";
+        return;
+      }
+
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = "Registrando...";
+      
+      const userData = {
+        primerNombre: formData.get("primerNombre").trim(),
+        segundoNombre: formData.get("segundoNombre").trim(),
+        apellidos: formData.get("apellidos").trim(),
+        edad: parseInt(formData.get("edad")),
+        correo: formData.get("correo").trim(),
+        password: password,
+        centro: formData.get("centro").trim(),
+        pais: formData.get("pais").trim(),
+        departamento: formData.get("departamento").trim(),
+        ciudad: formData.get("ciudad").trim(),
+        direccion: formData.get("direccion").trim(),
+        telefono: formData.get("telefono").trim(),
+        correoCentro: formData.get("correoCentro").trim()
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/register.php`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          localStorage.setItem("usuarioActivo", JSON.stringify({
+            id: data.userId,
+            ...userData,
+            password: undefined
+          }));
+          
+          mensaje.textContent = "¡Registro exitoso! Redirigiendo...";
+          mensaje.className = "mensaje exito";
+          mensaje.style.display = "block";
+          
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
+        } else {
+          mensaje.textContent = data.message || "Error al registrar usuario";
+          mensaje.className = "mensaje error";
+          mensaje.style.display = "block";
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = "Crear Cuenta";
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        mensaje.textContent = "Error de conexión. Verifica que XAMPP esté ejecutando Apache y MySQL.";
+        mensaje.className = "mensaje error";
+        mensaje.style.display = "block";
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = "Crear Cuenta";
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      if (usuarioActivo) {
+        window.location.href = "index.html";
+      }
+    });
+    // Agregar este código al final de tu archivo register.js o main.js
+
+// Función de registro actualizada
+function registrarUsuario(event) {
+  event.preventDefault();
+  
+  // Obtener datos del formulario
+  const primerNombre = document.getElementById('primerNombre').value.trim();
+  const apellidos = document.getElementById('apellidos').value.trim();
+  const correo = document.getElementById('correo').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
+  
+  // Validaciones básicas
+  if (!primerNombre || !apellidos || !correo || !password || !confirmPassword) {
+    alert('Por favor completa todos los campos obligatorios');
+    return;
+  }
+  
+  if (password !== confirmPassword) {
+    alert('Las contraseñas no coinciden');
+    return;
+  }
+  
+  if (password.length < 6) {
+    alert('La contraseña debe tener al menos 6 caracteres');
+    return;
+  }
+  
+  // Verificar si el correo ya está registrado
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const correoExiste = usuarios.some(u => u.correo === correo);
+  
+  if (correoExiste) {
+    alert('Este correo ya está registrado. Por favor inicia sesión.');
+    window.location.href = 'login.html';
+    return;
+  }
+  
+  // Crear nuevo usuario
+  const nuevoUsuario = {
+    id: Date.now(),
+    primerNombre,
+    segundoNombre: document.getElementById('segundoNombre')?.value.trim() || '',
+    apellidos,
+    edad: document.getElementById('edad')?.value.trim() || '',
+    correo,
+    password,
+    centro: document.getElementById('centro')?.value.trim() || '',
+    pais: document.getElementById('pais')?.value.trim() || '',
+    departamento: document.getElementById('departamento')?.value.trim() || '',
+    ciudad: document.getElementById('ciudad')?.value.trim() || '',
+    direccion: document.getElementById('direccion')?.value.trim() || '',
+    telefono: document.getElementById('telefono')?.value.trim() || '',
+    correoCentro: document.getElementById('correoCentro')?.value.trim() || '',
+    proyectos: [],
+    fechaRegistro: new Date().toISOString()
+  };
+  
+  // Guardar usuario
+  usuarios.push(nuevoUsuario);
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  
+  // Iniciar sesión automáticamente
+  localStorage.setItem('usuarioActivo', JSON.stringify(nuevoUsuario));
+  
+  // Mensaje de éxito
+  alert(`¡Bienvenido ${primerNombre}! Tu cuenta ha sido creada exitosamente.`);
+  
+  // Redirigir al dashboard
+  window.location.href = 'dashboard.html';
+}
+
+// Asignar evento al formulario
+document.getElementById('formRegister')?.addEventListener('submit', registrarUsuario);
+
+// Agregar este código al final de tu register.html o en tu archivo register.js
+
+// Función de registro
+function registrarUsuario(event) {
+  event.preventDefault();
+  
+  // Obtener datos del formulario
+  const primerNombre = document.getElementById('primerNombre').value.trim();
+  const apellidos = document.getElementById('apellidos').value.trim();
+  const correo = document.getElementById('correo').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
+  
+  // Validaciones básicas
+  if (!primerNombre || !apellidos || !correo || !password || !confirmPassword) {
+    alert('Por favor completa todos los campos obligatorios');
+    return;
+  }
+  
+  if (password !== confirmPassword) {
+    alert('Las contraseñas no coinciden');
+    return;
+  }
+  
+  if (password.length < 6) {
+    alert('La contraseña debe tener al menos 6 caracteres');
+    return;
+  }
+  
+  // Verificar si el correo ya está registrado
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const correoExiste = usuarios.some(u => u.correo === correo);
+  
+  if (correoExiste) {
+    alert('Este correo ya está registrado. Por favor inicia sesión.');
+    window.location.href = 'login.html';
+    return;
+  }
+  
+  // Crear nuevo usuario
+  const nuevoUsuario = {
+    id: Date.now(),
+    primerNombre,
+    segundoNombre: document.getElementById('segundoNombre')?.value.trim() || '',
+    apellidos,
+    edad: document.getElementById('edad')?.value.trim() || '',
+    correo,
+    password,
+    centro: document.getElementById('centro')?.value.trim() || '',
+    pais: document.getElementById('pais')?.value.trim() || '',
+    departamento: document.getElementById('departamento')?.value.trim() || '',
+    ciudad: document.getElementById('ciudad')?.value.trim() || '',
+    direccion: document.getElementById('direccion')?.value.trim() || '',
+    telefono: document.getElementById('telefono')?.value.trim() || '',
+    correoCentro: document.getElementById('correoCentro')?.value.trim() || '',
+    proyectos: [],
+    fechaRegistro: new Date().toISOString()
+  };
+  
+  // Guardar usuario
+  usuarios.push(nuevoUsuario);
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  
+  // Iniciar sesión automáticamente
+  localStorage.setItem('usuarioActivo', JSON.stringify(nuevoUsuario));
+  
+  // Mensaje de éxito
+  alert(`¡Bienvenido ${primerNombre}! Tu cuenta ha sido creada exitosamente.`);
+  
+  // Redirigir al INDEX (que ahora muestra el dashboard si hay sesión)
+  window.location.href = '../index.html';
+}
+
+// Asignar el evento al formulario
+const formRegister = document.getElementById('formRegister');
+if (formRegister) {
+  formRegister.addEventListener('submit', registrarUsuario);
+}
+  </script>
+</body>
+</html>

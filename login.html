@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ManageNLearn - Iniciar Sesión</title>
+  <link rel="stylesheet" href="../css/login.css">
+  <style>
+    /* CSS Crítico inline para que siempre funcione */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #eee5db, #f5f5f5);
+      color: #000;
+      min-height: 100vh;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #f7f0e8, #eeada7);
+      padding: 15px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      color: white;
+    }
+    
+    .navbar h1 {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+    }
+    
+    .navbar h1 img {
+      width: 45px;
+      height: 45px;
+      margin-right: 15px;
+      border-radius: 8px;
+    }
+    
+    .menu {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .menu a:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+    
+    main {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    
+    .login-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1200px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-height: 600px;
+    }
+    
+    .login-form {
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .login-form h2 {
+      color: #b3544d;
+      font-size: 32px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    
+    .login-form p {
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+    
+    .input-group {
+      margin-bottom: 25px;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #000;
+      font-size: 14px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      background: #ffffff;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      color: #000;
+    }
+    
+    .input-group input:focus {
+      outline: none;
+      border-color: #b3544d;
+      box-shadow: 0 0 0 3px rgba(179, 84, 77, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .btn-login {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #e09791, #d4726b);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(179, 84, 77, 0.3);
+    }
+    
+    .btn-login:hover {
+      background: linear-gradient(135deg, #c87c74, #b86c65);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(179, 84, 77, 0.4);
+    }
+    
+    .login-footer {
+      text-align: center;
+    }
+    
+    .login-footer p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+    
+    .login-footer a {
+      color: #b3544d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .login-illustration {
+      background: linear-gradient(135deg, #f8f4f1, #eeada7);
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .login-illustration img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 30px;
+    }
+    
+    .login-illustration h3 {
+      color: #fff;
+      font-size: 28px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    
+    .login-illustration p {
+      color: rgba(255,255,255,0.9);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 300px;
+    }
+    
+    .mensaje {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .mensaje.exito {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .mensaje.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    @media (max-width: 768px) {
+      .login-container {
+        grid-template-columns: 1fr;
+        margin: 20px;
+      }
+      
+      .login-illustration {
+        order: -1;
+        padding: 40px 20px;
+      }
+      
+      .login-form {
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo" onerror="this.style.display='none'">
+      ManageNLearn
+    </h1>
+    <div class="menu">
+      <a href="register.html">Registrarme</a>
+      <a href="index.html">Inicio</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="login-container">
+      <div class="login-form">
+        <h2>Iniciar Sesión</h2>
+        <p>Accede a tu cuenta en ManageNLearn</p>
+
+        <form id="formLogin">
+          <div class="input-group">
+            <label for="correoLogin">Correo electrónico *</label>
+            <input type="email" id="correoLogin" name="correoLogin" required placeholder="tu@email.com">
+          </div>
+
+          <div class="input-group">
+            <label for="passwordLogin">Contraseña *</label>
+            <input type="password" id="passwordLogin" name="passwordLogin" required placeholder="Tu contraseña">
+          </div>
+
+          <button type="submit" class="btn-login">Entrar</button>
+        </form>
+
+        <div class="login-footer">
+          <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+        </div>
+
+        <div id="mensajeLogin" class="mensaje" style="display: none;"></div>
+      </div>
+
+      <div class="login-illustration">
+        <img src="../assets/imgcomputador.png" alt="Ilustración login" onerror="this.style.display='none'">
+        <h3>¡Bienvenido de nuevo!</h3>
+        <p>Accede a tus proyectos, agenda y estadísticas de manera rápida y segura.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_URL = 'http://localhost/ManageNLearn/api';
+
+    document.getElementById("formLogin").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const correoLogin = document.getElementById("correoLogin").value.trim();
+      const passwordLogin = document.getElementById("passwordLogin").value;
+      const mensaje = document.getElementById("mensajeLogin");
+      const btnSubmit = e.target.querySelector('button[type="submit"]');
+
+      if (!correoLogin || !passwordLogin) {
+        mensaje.textContent = "Por favor completa todos los campos";
+        mensaje.className = "mensaje error";
+        mensaje.style.display = "block";
+        return;
+      }
+
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = "Iniciando sesión...";
+
+      try {
+        const response = await fetch(`${API_URL}/login.php`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            correo: correoLogin,
+            password: passwordLogin
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          localStorage.setItem('usuarioActivo', JSON.stringify(data.user));
+          
+          mensaje.textContent = "¡Inicio de sesión exitoso! Redirigiendo...";
+          mensaje.className = "mensaje exito";
+          mensaje.style.display = "block";
+
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1000);
+        } else {
+          mensaje.textContent = data.message || "Correo o contraseña incorrectos";
+          mensaje.className = "mensaje error";
+          mensaje.style.display = "block";
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = "Entrar";
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        mensaje.textContent = "Error de conexión. Verifica que XAMPP esté ejecutando Apache y MySQL.";
+        mensaje.className = "mensaje error";
+        mensaje.style.display = "block";
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = "Entrar";
+      }
+    });
+
+    // Redirigir si ya hay sesión activa
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      if (usuarioActivo) {
+        window.location.href = "index.html";
+      }
+    });
+
+    // Agregar este código al final de tu archivo login.js o main.js
+
+// Función de inicio de sesión actualizada
+function iniciarSesion(event) {
+  event.preventDefault();
+  
+  const correo = document.getElementById('correoLogin').value.trim();
+  const password = document.getElementById('passwordLogin').value.trim();
+  
+  if (!correo || !password) {
+    alert('Por favor completa todos los campos');
+    return;
+  }
+  
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const usuario = usuarios.find(u => u.correo === correo && u.password === password);
+  
+  if (usuario) {
+    // Guardar usuario activo
+    localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
+    
+    // Mensaje de éxito
+    alert(`¡Bienvenido de nuevo, ${usuario.primerNombre}!`);
+    
+    // Redirigir al dashboard (ya no a index.html sino a dashboard.html)
+    window.location.href = 'dashboard.html';
+  } else {
+    alert('Correo o contraseña incorrectos');
+  }
+}
+
+// Verificar si el usuario ya está autenticado al cargar la página
+function verificarSesion() {
+  const usuarioActivo = localStorage.getItem('usuarioActivo');
+  const paginaActual = window.location.pathname;
+  
+  // Si está en login/register y ya tiene sesión, redirigir al dashboard
+  if (usuarioActivo && (paginaActual.includes('login.html') || paginaActual.includes('register.html'))) {
+    window.location.href = 'dashboard.html';
+  }
+  
+  // Si está en el dashboard y NO tiene sesión, redirigir al index (landing)
+  if (!usuarioActivo && paginaActual.includes('dashboard.html')) {
+    window.location.href = '../index.html';
+  }
+}
+
+// Ejecutar al cargar la página
+document.addEventListener('DOMContentLoaded', verificarSesion);
+
+// Agregar este código al final de tu login.html o en tu archivo login.js
+
+// Función de inicio de sesión
+function iniciarSesion(event) {
+  event.preventDefault();
+  
+  const correo = document.getElementById('correoLogin').value.trim();
+  const password = document.getElementById('passwordLogin').value.trim();
+  
+  if (!correo || !password) {
+    alert('Por favor completa todos los campos');
+    return;
+  }
+  
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const usuario = usuarios.find(u => u.correo === correo && u.password === password);
+  
+  if (usuario) {
+    // Guardar usuario activo
+    localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
+    
+    // Mensaje de éxito
+    alert(`¡Bienvenido de nuevo, ${usuario.primerNombre}!`);
+    
+    // Redirigir al INDEX (que ahora muestra el dashboard si hay sesión)
+    window.location.href = '../index.html';
+  } else {
+    alert('Correo o contraseña incorrectos');
+  }
+}
+
+// Asignar el evento al formulario
+const formLogin = document.getElementById('formLogin');
+if (formLogin) {
+  formLogin.addEventListener('submit', iniciarSesion);
+}
+
+// En tu archivo de login (login.js o similar)
+async function iniciarSesion(correo, password) {
+    try {
+        const response = await fetch('/ManageNLearn/api/login.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include', // ✅ IMPORTANTE: Para enviar/recibir cookies
+            body: JSON.stringify({ correo, password })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Login exitoso, redirigir
+            window.location.href = '/ManageNLearn/public/html/proyectos.php';
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al iniciar sesión');
+    }
+}
+  </script>
+</body>
+</html>

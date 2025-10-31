@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración - ManageNLearn</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/configuracion.css">
+</head>
+<body>
+  <!-- NAVBAR AGREGADO -->
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo">
+      ManageNLearn
+    </h1>
+    <div class="menu" id="menuDashboard">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main>
+    <div id="configuracion">
+      <div class="config-wrapper">
+        <!-- HEADER -->
+        <div class="config-header">
+          <h2>⚙️ Configuración</h2>
+          <p>Personaliza tu experiencia en ManageNLearn</p>
+        </div>
+
+        <!-- MENSAJE DE ÉXITO -->
+        <div id="alertSuccess" class="alert alert-success" style="display: none;">
+          <span>✔</span>
+          <span>Configuración guardada correctamente</span>
+        </div>
+
+        <!-- APARIENCIA -->
+        <div class="config-section">
+          <h3 class="section-title">🎨 Apariencia</h3>
+          <p class="section-description">
+            Personaliza el aspecto visual de la plataforma según tus preferencias
+          </p>
+
+          <div class="config-option">
+            <div class="option-info">
+              <div class="option-title">Tema de color</div>
+              <div class="option-subtitle">Elige entre tema claro, oscuro o automático</div>
+            </div>
+          </div>
+
+          <div class="theme-preview">
+            <div class="preview-card preview-light active" data-theme="light">
+              <div style="font-size: 32px; margin-bottom: 10px;">☀️</div>
+              <strong>Claro</strong>
+            </div>
+            <div class="preview-card preview-dark" data-theme="dark">
+              <div style="font-size: 32px; margin-bottom: 10px;">🌙</div>
+              <strong>Oscuro</strong>
+            </div>
+            <div class="preview-card preview-auto" data-theme="auto">
+              <div style="font-size: 32px; margin-bottom: 10px;">✨</div>
+              <strong>Automático</strong>
+            </div>
+          </div>
+
+          <div class="config-option" style="margin-top: 25px;">
+            <div class="option-info">
+              <div class="option-title">Tamaño de texto</div>
+              <div class="option-subtitle">Ajusta el tamaño del texto a tu comodidad</div>
+            </div>
+          </div>
+
+          <div class="font-size-demo" id="fontDemo">
+            <p>Este es un ejemplo del tamaño de texto seleccionado</p>
+          </div>
+
+          <div class="font-size-buttons">
+            <button class="font-btn" data-size="14px">Pequeño</button>
+            <button class="font-btn active" data-size="16px">Mediano</button>
+            <button class="font-btn" data-size="18px">Grande</button>
+          </div>
+        </div>
+
+        <!-- NOTIFICACIONES -->
+        <div class="config-section">
+          <h3 class="section-title">🔔 Notificaciones</h3>
+          <p class="section-description">
+            Controla qué notificaciones quieres recibir
+          </p>
+
+          <div class="config-option">
+            <div class="option-info">
+              <div class="option-title">Notificaciones del navegador</div>
+              <div class="option-subtitle">Recibe alertas incluso cuando no estés en la aplicación</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="notifBrowser" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="config-option">
+            <div class="option-info">
+              <div class="option-title">Recordatorios de eventos</div>
+              <div class="option-subtitle">Te avisaremos antes de tus eventos importantes</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="notifEventos" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="config-option">
+            <div class="option-info">
+              <div class="option-title">Resumen semanal por email</div>
+              <div class="option-subtitle">Recibe un resumen de tus proyectos cada lunes</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="notifResumen">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="notification-preview" id="notifPreview" style="display: none;">
+            <span style="font-size: 24px;">🔔</span>
+            <div>
+              <strong>Vista previa de notificación</strong>
+              <div style="font-size: 13px; opacity: 0.9;">Así se verán tus alertas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IDIOMA Y REGIÓN -->
+        <div class="config-section">
+          <h3 class="section-title">🌍 Idioma y Región</h3>
+          <p class="section-description">
+            Configura tu idioma y formato de fecha/hora
+          </p>
+
+          <div class="language-grid">
+            <div class="language-option active" data-lang="es">
+              <div class="language-flag">🇪🇸</div>
+              <strong>Español</strong>
+            </div>
+          </div>
+
+          <div class="config-option" style="margin-top: 25px;">
+            <div class="option-info">
+              <div class="option-title">Formato de fecha</div>
+              <div class="option-subtitle">Cómo se mostrarán las fechas</div>
+            </div>
+            <div class="custom-select">
+              <select id="formatoFecha">
+                <option value="dd/mm/yyyy">DD/MM/AAAA</option>
+                <option value="mm/dd/yyyy">MM/DD/AAAA</option>
+                <option value="yyyy-mm-dd">AAAA-MM-DD</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRIVACIDAD Y DATOS -->
+        <div class="config-section">
+          <h3 class="section-title">🔒 Privacidad y Datos</h3>
+          <p class="section-description">
+            Gestiona tu información y privacidad
+          </p>
+
+          <div class="data-stats">
+            <div class="data-stat">
+              <div class="data-number" id="totalProyectos">0</div>
+              <div class="data-label">Proyectos</div>
+            </div>
+            <div class="data-stat">
+              <div class="data-number" id="totalEventos">0</div>
+              <div class="data-label">Eventos</div>
+            </div>
+            <div class="data-stat">
+              <div class="data-number" id="espacioUsado">0 KB</div>
+              <div class="data-label">Espacio usado</div>
+            </div>
+          </div>
+
+          <div class="config-option" style="margin-top: 25px;">
+            <div class="option-info">
+              <div class="option-title">Copia de seguridad automática</div>
+              <div class="option-subtitle">Guarda tus datos automáticamente cada semana</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="backupAuto" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div style="display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap;">
+            <button class="btn-primary" onclick="exportarDatos()">
+              📥 Exportar mis datos
+            </button>
+            <button class="btn-secondary" onclick="limpiarCache()">
+              🧹 Limpiar caché
+            </button>
+          </div>
+        </div>
+
+        <!-- CUENTA -->
+        <div class="config-section">
+          <h3 class="section-title">👤 Cuenta</h3>
+          <p class="section-description">
+            Gestiona tu cuenta y seguridad
+          </p>
+
+          <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <button class="btn-primary" onclick="cambiarPassword()">
+              🔐 Cambiar contraseña
+            </button>
+            <button class="btn-secondary" onclick="cerrarSesionTodos()">
+              🚪 Cerrar sesión en todos los dispositivos
+            </button>
+          </div>
+
+          <div class="alert alert-warning" style="margin-top: 25px;">
+            <span>⚠️</span>
+            <div>
+              <strong>Zona peligrosa</strong>
+              <div style="font-size: 13px;">Las siguientes acciones son irreversibles</div>
+            </div>
+          </div>
+
+          <button class="btn-danger" onclick="eliminarCuenta()" style="margin-top: 15px;">
+            🗑️ Eliminar cuenta permanentemente
+          </button>
+        </div>
+
+        <!-- GUARDAR -->
+        <div style="text-align: center; margin-top: 40px;">
+          <button class="btn-primary" onclick="guardarConfiguracion()" style="padding: 16px 48px; font-size: 18px;">
+            💾 Guardar Configuración
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/configuracion.js"></script>
+</body>
+</html>

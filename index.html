@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ManageNLearn - Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/inicio.css">
+</head>
+<body>
+  <!-- ✅ SCRIPT DE REDIRECCIÓN - DEBE IR PRIMERO -->
+  <script>
+    // Verificar sesión INMEDIATAMENTE al cargar la página
+    (function() {
+      const usuarioActivo = localStorage.getItem('usuarioActivo');
+      const paginaActual = window.location.pathname;
+      
+      // Si NO hay sesión activa, redirigir a bienvenida
+      if (!usuarioActivo) {
+        console.log('❌ No hay sesión activa, redirigiendo a bienvenida...');
+        window.location.href = 'bienvenida.html';
+        return;
+      }
+      
+      console.log('✅ Sesión activa detectada, mostrando dashboard');
+    })();
+  </script>
+  <!-- ✅ FIN DEL SCRIPT -->
+
+  <div class="burbujas-container"></div> 
+  <div class="particles" id="particles"></div>
+  
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo" onerror="this.style.display='none'">
+      ManageNLearn
+    </h1>
+    
+    <!-- Menú para usuarios NO logueados -->
+    <div class="menu" id="menuPrincipal" style="display: none;">
+      <a href="./register.html">Registrarme</a>
+      <a href="./login.html">Iniciar Sesión</a>
+    </div>
+
+    <!-- Menú para usuarios logueados -->
+    <div class="menu" id="menuDashboard">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Reloj digital -->
+    <div class="clock-widget">
+      <div class="clock-time" id="clock">00:00:00</div>
+      <div class="clock-date" id="date">Cargando...</div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-container">
+      <!-- Bienvenida -->
+      <div class="welcome-section">
+        <h2>Bienvenido <span id="nombreUsuario">Usuario</span> 👋</h2>
+      </div>
+
+      <!-- Barra de búsqueda -->
+      <div class="search-container">
+        <div class="search-box">
+          <input type="search" id="searchInput" placeholder="Buscar proyectos, eventos, recursos...">
+          <span class="search-icon">🔍</span>
+        </div>
+      </div>
+
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <h1>
+          Gestiona tu institución educativa desde<br>
+          <span class="highlight-box">UN SOLO SOFTWARE</span>
+        </h1>
+        <p>¡Sencillo y eficiente!</p>
+      </div>
+
+
+      <!-- Tarjetas expandibles -->
+      <div class="tarjetas-expandibles">
+        <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+          <div class="tarjeta-header">
+            <span class="tarjeta-icon">👤</span>
+            <span class="tarjeta-titulo">Mi perfil</span>
+          </div>
+          <div class="tarjeta-contenido">
+            <p class="tarjeta-descripcion">
+              Consulta y edita tu información personal. Mantén actualizada tu foto, 
+              datos de contacto y preferencias del sistema.
+            </p>
+            <button class="btn-accion" onclick="redirigir('perfil', event)">Ir a Mi perfil</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+          <div class="tarjeta-header">
+            <span class="tarjeta-icon">📊</span>
+            <span class="tarjeta-titulo">Proyectos</span>
+          </div>
+          <div class="tarjeta-contenido">
+            <p class="tarjeta-descripcion">
+              Visualiza, organiza y gestiona todos tus proyectos educativos. 
+              Crea nuevos proyectos, establece fechas de entrega y monitorea el progreso.
+            </p>
+            <button class="btn-accion" onclick="redirigir('proyectos', event)">Ver Proyectos</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+          <div class="tarjeta-header">
+            <span class="tarjeta-icon">📅</span>
+            <span class="tarjeta-titulo">Agenda</span>
+          </div>
+          <div class="tarjeta-contenido">
+            <p class="tarjeta-descripcion">
+              Revisa tus actividades, eventos y entregas próximas. 
+              Organiza tu calendario y no pierdas ninguna fecha importante.
+            </p>
+            <button class="btn-accion" onclick="redirigir('agenda', event)">Abrir Agenda</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+          <div class="tarjeta-header">
+            <span class="tarjeta-icon">📈</span>
+            <span class="tarjeta-titulo">Estadísticas</span>
+          </div>
+          <div class="tarjeta-contenido">
+            <p class="tarjeta-descripcion">
+              Visualiza gráficas y datos importantes de tu institución. 
+              Analiza el rendimiento y toma decisiones informadas.
+            </p>
+            <button class="btn-accion" onclick="redirigir('estadisticas', event)">Ver Estadísticas</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+          <div class="tarjeta-header">
+            <span class="tarjeta-icon">⚙️</span>
+            <span class="tarjeta-titulo">Configuración</span>
+          </div>
+          <div class="tarjeta-contenido">
+            <p class="tarjeta-descripcion">
+              Personaliza tu experiencia. Cambia el tema, ajusta notificaciones 
+              y configura las opciones del sistema según tus preferencias.
+            </p>
+            <button class="btn-accion" onclick="redirigir('configuracion', event)">Configurar</button>
+          </div>
+        </div>
+
+        <div class="tarjeta-expandible" onclick="toggleTarjeta(this)">
+          <div class="tarjeta-header">
+            <span class="tarjeta-icon">💬</span>
+            <span class="tarjeta-titulo">Soporte</span>
+          </div>
+          <div class="tarjeta-contenido">
+            <p class="tarjeta-descripcion">
+              ¿Necesitas ayuda? Consulta nuestras preguntas frecuentes, 
+              tutoriales y ponte en contacto con nuestro equipo de soporte.
+            </p>
+            <button class="btn-accion" onclick="redirigir('soporte', event)">Obtener Ayuda</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de tips -->
+      <div class="tips-section">
+        <div class="tip-container">
+          <h3 class="tip-title">💡 Consejo del día</h3>
+          <p class="tip-text" id="tipText">Cargando consejo...</p>
+          <button class="tip-btn" onclick="cambiarTip()">Nuevo consejo</button>
+        </div>
+      </div>
+
+      <!-- Sección de Opiniones -->
+      <div class="opiniones-section" id="opiniones">
+        <div class="opiniones-header">
+          <h2>Lo que dicen nuestros usuarios</h2>
+          <p>Experiencias reales de instituciones que confían en ManageNLearn</p>
+        </div>
+
+        <!-- Grid de opiniones -->
+        <div class="opiniones-grid" id="listaOpiniones">
+          <div class="opinion-card">
+            <div class="opinion-header">
+              <span class="opinion-nombre">María González</span>
+              <span class="opinion-estrellas">⭐⭐⭐⭐⭐</span>
+            </div>
+            <p class="opinion-texto">
+              "Excelente plataforma para gestionar mi institución. 
+              Todo está organizado y es muy fácil de usar."
+            </p>
+          </div>
+
+          <div class="opinion-card">
+            <div class="opinion-header">
+              <span class="opinion-nombre">Carlos Ramírez</span>
+              <span class="opinion-estrellas">⭐⭐⭐⭐⭐</span>
+            </div>
+            <p class="opinion-texto">
+              "Ha revolucionado la forma en que administramos nuestros proyectos. 
+              Altamente recomendado."
+            </p>
+          </div>
+
+          <div class="opinion-card">
+            <div class="opinion-header">
+              <span class="opinion-nombre">Ana Martínez</span>
+              <span class="opinion-estrellas">⭐⭐⭐⭐</span>
+            </div>
+            <p class="opinion-texto">
+              "Muy intuitivo y completo. El soporte técnico es excelente 
+              y siempre están dispuestos a ayudar."
+            </p>
+          </div>
+        </div>
+
+        <!-- Contenedor de opiniones -->
+<div id="listaOpiniones" class="opiniones-grid"></div>
+
+<!-- Formulario -->
+<form id="formOpinion">
+  <input type="text" id="nombreOpinion" placeholder="Tu nombre" required>
+  <textarea id="textoOpinion" placeholder="Tu opinión..." required></textarea>
+  <select id="estrellasOpinion">
+    <option value="">Calificación</option>
+    <option value="1">⭐</option>
+    <option value="2">⭐⭐</option>
+    <option value="3">⭐⭐⭐</option>
+    <option value="4">⭐⭐⭐⭐</option>
+    <option value="5">⭐⭐⭐⭐⭐</option>
+  </select>
+  <button type="submit">Enviar opinión</button>
+</form>
+      </div>
+    </div>
+  </main>
+
+ <!-- FOOTER MEJORADO CON MODAL -->
+<!-- BUSCA en index.html la línea que dice: <footer -->
+<!-- Y REEMPLAZA TODO EL FOOTER (desde <footer hasta </footer>) con esto: -->
+
+<footer class="footer-mejorado">
+  <div class="footer-content-grid">
+    <!-- Columna 1: Brand -->
+    <div class="footer-brand-section">
+      <h2>ManageNLearn</h2>
+      <p>Plataforma educativa innovadora diseñada para optimizar la gestión de recursos institucionales. Facilita la organización de proyectos, seguimiento de eventos y análisis de estadísticas en tiempo real, brindando a las instituciones educativas herramientas eficientes para una administración moderna y efectiva.</p>
+      
+      <!-- Redes sociales con enlaces reales -->
+      <div class="footer-social">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="Facebook">
+          📘
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="Twitter">
+          🐦
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram">
+          📷
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="LinkedIn">
+          💼
+        </a>
+      </div>
+    </div>
+
+    <!-- Columna 2: Equipo -->
+    <div class="footer-team-section">
+      <h3>¿Quiénes somos?</h3>
+      <div class="team-grid">
+        <!-- Eva Medrano -->
+        <div class="team-member-card" onclick="abrirModal('eva')">
+          <img src="../assets/eva.png" alt="Eva Medrano" class="team-member-img" onerror="this.style.display='none'">
+          <div class="team-member-name">Eva Medrano</div>
+          <div class="team-member-role">Líder de Proyecto</div>
+        </div>
+        
+        <!-- Salomé Vargas -->
+        <div class="team-member-card" onclick="abrirModal('salome')">
+          <img src="../assets/salome.png" alt="Salomé Vargas" class="team-member-img" onerror="this.style.display='none'">
+          <div class="team-member-name">Salomé Vargas</div>
+          <div class="team-member-role">Supervisora</div>
+        </div>
+        
+        <!-- Eileen Hoyos -->
+        <div class="team-member-card" onclick="abrirModal('eileen')">
+          <img src="../assets/eileen.png" alt="Eileen Hoyos" class="team-member-img" onerror="this.style.display='none'">
+          <div class="team-member-name">Eileen Hoyos</div>
+          <div class="team-member-role">Diseñadora</div>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: #888; margin-top: 15px; font-style: italic;">💡 Haz click en las fotos para más información</p>
+    </div>
+
+    <!-- Columna 3: Contacto -->
+    <div class="footer-contact-section">
+      <h3>Contacto</h3>
+      
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <span class="contact-text"><strong>Email:</strong><br>contacto@managenlearn.edu.co</span>
+      </div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">📱</span>
+        <span class="contact-text"><strong>Teléfono:</strong><br>+57 301 000 0000</span>
+      </div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <span class="contact-text"><strong>Ubicación:</strong><br>Medellín, Colombia</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>© 2025 <strong>ManageNLearn</strong> - Todos los derechos reservados</p>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Términos de Servicio</a>
+      <a href="#" class="footer-link">Política de Privacidad</a>
+      <a href="#" class="footer-link">Ayuda</a>
+      <a href="#" class="footer-link">FAQ</a>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL PARA INFORMACIÓN DEL EQUIPO -->
+<div id="modalEquipo" class="modal-equipo" onclick="cerrarModal(event)">
+  <div class="modal-contenido" onclick="event.stopPropagation()">
+    <button class="modal-cerrar" onclick="cerrarModal()">&times;</button>
+    
+    <div class="modal-header">
+      <img id="modalFoto" src="" alt="Foto" class="modal-foto">
+      <div class="modal-info-basica">
+        <h2 id="modalNombre">Nombre</h2>
+        <p id="modalRol" class="modal-rol">Rol</p>
+      </div>
+    </div>
+    
+    <div class="modal-body">
+      <div class="modal-detalle">
+        <span class="detalle-icono">🎂</span>
+        <div>
+          <strong>Edad</strong>
+          <p id="modalEdad">-</p>
+        </div>
+      </div>
+      
+      <div class="modal-detalle">
+        <span class="detalle-icono">👤</span>
+        <div>
+          <strong>Nombre Completo</strong>
+          <p id="modalNombreCompleto">-</p>
+        </div>
+      </div>
+      
+      <div class="modal-detalle">
+        <span class="detalle-icono">💼</span>
+        <div>
+          <strong>Papel en el Proyecto</strong>
+          <p id="modalPapel">-</p>
+        </div>
+      </div>
+      
+      <div class="modal-detalle">
+        <span class="detalle-icono">📝</span>
+        <div>
+          <strong>Descripción</strong>
+          <p id="modalDescripcion">-</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- SCRIPTS -->
+  <script src="../js/main.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/inicio.js"></script>
+<script src="../js/opiniones.js"></script>
+</body>
+</html>

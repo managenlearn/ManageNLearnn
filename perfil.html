@@ -1,0 +1,180 @@
+<?php
+session_start();
+
+// Verificar si hay sesión activa
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: ../../login.php');
+    exit();
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - ManageNLearn</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/perfil.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo">
+      ManageNLearn
+    </h1>
+    <div class="menu" id="menuDashboard">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+
+    </div>
+  </nav>
+
+  <main>
+    <div id="perfil">
+      <div class="perfil-wrapper">
+        <!-- HEADER -->
+        <div class="perfil-header">
+          <h2>👤 Mi Perfil</h2>
+          <p>Gestiona tu información personal y académica</p>
+        </div>
+
+        <!-- MENSAJE -->
+        <div id="mensajePerfil" class="mensaje" style="display: none;"></div>
+
+        <!-- CONTENEDOR PRINCIPAL -->
+        <div class="perfil-container">
+          <!-- TARJETA DE PERFIL -->
+          <div class="perfil-card">
+            <div class="perfil-avatar">
+  <div class="avatar-wrapper">
+    <div class="avatar-circle">
+      <span id="avatarInicial">U</span>
+      <img id="avatarImg" src="" alt="Foto de perfil" style="display: none;">
+    </div>
+    <div class="avatar-overlay">
+      <span class="avatar-overlay-icon">📷</span>
+    </div>
+  </div>
+  <input type="file" id="inputFoto" accept="image/*" style="display: none;">
+  <button type="button" class="btn-cambiar-foto" id="btnCambiarFoto">
+    📷 Cambiar foto
+  </button>
+  <button type="button" class="btn-eliminar-foto" id="btnEliminarFoto">
+    🗑️ Eliminar foto
+  </button>
+</div>
+            
+            <div class="perfil-info-breve">
+              <h3 id="nombreCompleto">Usuario</h3>
+              <p id="correoUsuario">usuario@email.com</p>
+              <div class="perfil-stats">
+                <div class="stat-item">
+                  <span class="stat-numero" id="statProyectos">0</span>
+                  <span class="stat-texto">Proyectos</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-numero" id="statEventos">0</span>
+                  <span class="stat-texto">Eventos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORMULARIO DE EDICIÓN -->
+          <div class="perfil-form-container">
+            <form id="formPerfil">
+              <div class="form-section">
+                <h3 class="section-title">📋 Información Personal</h3>
+                
+                <div class="input-row">
+                  <div class="form-group">
+                    <label>Primer nombre *</label>
+                    <input type="text" name="primerNombrePerfil" id="primerNombrePerfil" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Segundo nombre</label>
+                    <input type="text" name="segundoNombrePerfil" id="segundoNombrePerfil">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Apellidos *</label>
+                  <input type="text" name="apellidosPerfil" id="apellidosPerfil" required>
+                </div>
+
+                <div class="input-row">
+                  <div class="form-group">
+                    <label>Edad *</label>
+                    <input type="number" name="edadPerfil" id="edadPerfil" required min="1" max="120">
+                  </div>
+                  <div class="form-group">
+                    <label>Correo electrónico *</label>
+                    <input type="email" name="correoPerfil" id="correoPerfil" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h3 class="section-title">🏫 Información Institucional</h3>
+                
+                <div class="form-group">
+                  <label>Nombre del centro educativo *</label>
+                  <input type="text" name="centroPerfil" id="centroPerfil" required>
+                </div>
+
+                <div class="input-row">
+                  <div class="form-group">
+                    <label>País *</label>
+                    <input type="text" name="paisPerfil" id="paisPerfil" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Departamento/Estado *</label>
+                    <input type="text" name="departamentoPerfil" id="departamentoPerfil" required>
+                  </div>
+                </div>
+
+                <div class="input-row">
+                  <div class="form-group">
+                    <label>Ciudad *</label>
+                    <input type="text" name="ciudadPerfil" id="ciudadPerfil" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Teléfono de contacto *</label>
+                    <input type="tel" name="telefonoPerfil" id="telefonoPerfil" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Dirección *</label>
+                  <input type="text" name="direccionPerfil" id="direccionPerfil" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Correo del centro educativo *</label>
+                  <input type="email" name="correoCentroPerfil" id="correoCentroPerfil" required>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">💾 Guardar Cambios</button>
+                <button type="button" class="btn-secondary" onclick="cancelarEdicion()">❌ Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/perfil.js"></script>
+</body>
+</html>

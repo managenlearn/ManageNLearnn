@@ -1,0 +1,228 @@
+<?php
+session_start();
+
+// Verificar si hay sesión activa
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: ../../login.php'); // Ajusta la ruta a tu login
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyectos - ManageNLearn</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/proyectos.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>
+      <img src="../assets/logoNoTr.PNG" alt="Logo" onerror="this.style.display='none'">
+      ManageNLearn
+    </h1>
+    <div class="menu">
+      <a href="index.html">Inicio</a>
+      <a href="perfil.html">Mi perfil</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="estadisticas.html">Estadísticas</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="soporte.html">Soporte</a>
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="proyectos-contenedor">
+      <!-- HEADER MEJORADO -->
+      <div class="proyectos-header">
+        <div class="header-content">
+          <h2 class="titulo-proyectos">📊 Gestión de Proyectos</h2>
+          <p class="subtitulo-proyectos">Organiza, crea y haz crecer tus ideas</p>
+        </div>
+        <div class="header-stats">
+          <div class="stat-badge">
+            <span class="stat-number" id="totalProyectos">0</span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="stat-badge">
+            <span class="stat-number" id="proyectosActivos">0</span>
+            <span class="stat-label">Activos</span>
+          </div>
+          <div class="stat-badge">
+            <span class="stat-number" id="proyectosCompletados">0</span>
+            <span class="stat-label">Completados</span>
+          </div>
+          <div class="stat-badge stat-badge-danger">
+            <span class="stat-number" id="proyectosVencidos">0</span>
+            <span class="stat-label">Vencidos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BARRA DE BÚSQUEDA Y ACCIONES -->
+      <div class="barra-acciones">
+        <div class="busqueda-container">
+          <span class="busqueda-icon">🔍</span>
+          <input type="text" id="buscador" placeholder="Buscar proyectos por nombre, descripción o etiqueta...">
+        </div>
+        <button class="btn-exportar" onclick="exportarProyectos()">
+          📥 Exportar
+        </button>
+      </div>
+
+      <!-- FILTROS Y ORDEN -->
+      <div class="controles-container">
+        <div class="filtros-container">
+          <button class="filtro-btn active" data-filtro="todos">
+            📋 Todos
+          </button>
+          <button class="filtro-btn" data-filtro="pendiente">
+            ⏳ Pendientes
+          </button>
+          <button class="filtro-btn" data-filtro="en-proceso">
+            🔄 En Proceso
+          </button>
+          <button class="filtro-btn" data-filtro="completado">
+            ✅ Completados
+          </button>
+        </div>
+
+        <div class="orden-container">
+          <span class="orden-label">Ordenar por:</span>
+          <button class="orden-btn active" data-orden="fecha" onclick="cambiarOrden('fecha')">
+            📅 Fecha
+          </button>
+          <button class="orden-btn" data-orden="prioridad" onclick="cambiarOrden('prioridad')">
+            🎯 Prioridad
+          </button>
+          <button class="orden-btn" data-orden="nombre" onclick="cambiarOrden('nombre')">
+            🔤 Nombre
+          </button>
+        </div>
+      </div>
+
+      <!-- FORMULARIO MEJORADO -->
+      <div class="form-proyecto-container">
+        <div class="form-header">
+          <h3>➕ Nuevo Proyecto</h3>
+          <p>Completa la información para crear tu proyecto</p>
+        </div>
+        
+        <form id="formProyecto" class="form-proyecto">
+          <div class="form-row">
+            <div class="form-group">
+              <label>
+                <span class="label-icon">📝</span>
+                Nombre del proyecto *
+              </label>
+              <input type="text" name="nombreProyecto" required placeholder="Ej: Sistema de gestión escolar">
+            </div>
+            
+            <div class="form-group">
+              <label>
+                <span class="label-icon">📅</span>
+                Fecha de entrega *
+              </label>
+              <input type="date" name="fechaEntrega" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span class="label-icon">📄</span>
+              Descripción *
+            </label>
+            <textarea name="descripcionProyecto" rows="3" required placeholder="Describe tu proyecto aquí..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>
+                <span class="label-icon">🎯</span>
+                Estado *
+              </label>
+              <select name="estadoProyecto" required>
+                <option value="pendiente">⏳ Pendiente</option>
+                <option value="en-proceso">🔄 En proceso</option>
+                <option value="completado">✅ Completado</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span class="label-icon">🎨</span>
+                Prioridad
+              </label>
+              <select name="prioridadProyecto">
+                <option value="baja">🟢 Baja</option>
+                <option value="media" selected>🟡 Media</option>
+                <option value="alta">🔴 Alta</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <span class="label-icon">🔗</span>
+              Enlace (opcional)
+            </label>
+            <input type="url" name="enlaceProyecto" placeholder="https://...">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span class="label-icon">🏷️</span>
+              Etiquetas (separadas por comas)
+            </label>
+            <input type="text" name="etiquetasProyecto" placeholder="Ej: urgente, importante, frontend">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <span class="label-icon">📝</span>
+              Notas adicionales (opcional)
+            </label>
+            <textarea name="notasProyecto" rows="3" placeholder="Agrega notas o detalles importantes..."></textarea>
+          </div>
+          
+          <div class="form-acciones">
+            <button type="submit" id="btnSubmit" class="btn-agregar">
+              <span>➕</span>
+              Agregar Proyecto
+            </button>
+            <button type="button" id="btnCancelar" class="btn-cancelar" onclick="cancelarEdicion()" style="display: none;">
+              ❌ Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- CONTADOR Y MENSAJE -->
+      <div class="proyectos-info">
+        <div id="contadorProyectos" class="contador-proyectos">Proyectos activos: 0</div>
+        <button class="btn-vista" onclick="cambiarVista()">
+          <span id="vistaIcon">📋</span>
+          <span id="vistaText">Vista Lista</span>
+        </button>
+      </div>
+
+      <!-- MENSAJE VACÍO MEJORADO -->
+      <div id="mensajeSinProyectos" class="mensaje-vacio">
+        <div class="empty-icon">📂</div>
+        <h3>No tienes proyectos aún</h3>
+        <p>¡Agrega tu primer proyecto usando el formulario de arriba!</p>
+      </div>
+
+      <!-- LISTA DE PROYECTOS -->
+      <ul id="listaProyectos" class="lista-proyectos"></ul>
+    </div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/proyectos.js"></script>
+</body>
+</html>
